@@ -25,21 +25,21 @@ export default function Sidebar() {
                             {isCollapsed ? '🏠' : '🏠 Dashboard'}
                         </Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link href="/dashboard/tictactoe" className="block px-4 py-3 hover:bg-gray-800 transition">
                             {isCollapsed ? '🎮' : '🎮 Tic-Tac-Toe'}
                         </Link>
-                    </li>
+                    </li> */}
                     <li>
                         <Link href="/dashboard/snake" className="block px-4 py-3 hover:bg-gray-800 transition">
-                            {isCollapsed ? '🐍' : '🐍 Snake'}
+                            {isCollapsed ? '🐍' : '🐍 Gab the Snake'}
                         </Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link href="/dashboard/settings" className="block px-4 py-3 hover:bg-gray-800 transition">
                             {isCollapsed ? '⚙️' : '⚙️ Settings'}
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
         </aside>

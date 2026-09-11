@@ -15,11 +15,10 @@ export class ScoreModel {
         const result = await pool.request().query(`
             SELECT TOP 10
                 u.FirstName,
-                MAX(s.Score) as HighestScore
+                s.Score as HighestScore
             FROM tblSnakeScores s
             JOIN tblUsers u ON s.UserId = u.Id
-            GROUP BY u.Id, u.FirstName
-            ORDER BY HighestScore DESC
+            ORDER BY s.Score DESC, s.CreatedAt ASC
         `);
         return result.recordset;
     }

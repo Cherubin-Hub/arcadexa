@@ -24,7 +24,7 @@ export default function DashboardPage() {
                 <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                     <div className="bg-gray-800 p-4">
                         <h2 className="text-2xl font-bold text-white flex items-center">
-                            🏆 Snake Global Leaderboard
+                            🏆 Gab the Snake Leaderboard
                         </h2>
                     </div>
                     
