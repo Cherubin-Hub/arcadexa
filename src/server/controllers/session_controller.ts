@@ -49,7 +49,8 @@ export class AuthController {
             const token = JwtHelper.generateToken({
                 id: user.Id,
                 username: user.Username,
-                email: user.Email
+                email: user.Email,
+                firstName: user.FirstName,
             });
 
             // 4. Set HttpOnly Cookie
@@ -60,7 +61,7 @@ export class AuthController {
                 maxAge: 3600000
             });
 
-            res.status(200).json({ message: 'Login successful', username: user.Username });
+            res.status(200).json({ message: 'Login successful', username: user.Username, firstName: user.FirstName });
         }
          catch (error) {
             console.error('Login Error:', error);

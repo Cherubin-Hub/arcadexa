@@ -6,6 +6,7 @@ import { createServer } from 'http';
 import { Server as ColyseusServer } from 'colyseus';
 import { WebSocketTransport } from '@colyseus/ws-transport';
 import authRoutes from './routes/session_routes';
+import scoreRoutes from './routes/score_routes';
 import { TicTacToeRoom } from './game/rooms/tictactoe_room';
 
 dotenv.config();
@@ -24,6 +25,7 @@ nextApp.prepare().then(() => {
 
     // --- Express Backend Routes ---
     app.use('/api/auth', authRoutes);
+    app.use('/api/scores', scoreRoutes);
 
     // --- Next.js Frontend Catch-All ---
     app.use((req, res) => {

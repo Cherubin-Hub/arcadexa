@@ -5,6 +5,9 @@ BEGIN
         [Username] [nvarchar](50) NOT NULL UNIQUE,
         [Email] [nvarchar](255) NOT NULL UNIQUE,
         [PasswordHash] [nvarchar](255) NOT NULL,
+        [FirstName] [nvarchar](50) NOT NULL,
+        [MiddleName] [nvarchar](50) NULL,
+        [LastName] [nvarchar](50) NOT NULL,
         [IsActive] [bit] NOT NULL DEFAULT 1,
         [CreatedAt] [datetime] NOT NULL DEFAULT GETDATE()
     )
