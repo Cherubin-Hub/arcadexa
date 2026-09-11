@@ -1,4 +1,3 @@
-// src/server/utils/database.ts
 import sql from 'mssql';
 import dotenv from 'dotenv';
 
@@ -11,7 +10,7 @@ const dbConfig: sql.config = {
     server: process.env.DB_SERVER || 'localhost',
     database: process.env.DB_NAME,
     options: {
-        encrypt: false, // Set to true if you are hosting on Azure
+        encrypt: true, // Set to true if you are hosting on Azure
         trustServerCertificate: true // Crucial for local development on Windows
     }
 };

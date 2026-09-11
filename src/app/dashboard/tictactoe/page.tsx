@@ -1,0 +1,1 @@
+export { default } from './tictactoe_page';

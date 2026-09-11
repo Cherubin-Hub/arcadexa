@@ -1,4 +1,3 @@
-// src/server/routes/session_routes.ts
 import { Router } from 'express';
 import { AuthController } from '../controllers/session_controller';
 import { AuthMiddleware } from '../middlewares/session_middleware';
@@ -8,6 +7,7 @@ const router = Router();
 // Public Routes (Anyone can access these)
 router.post('/register', AuthController.register);
 router.post('/login', AuthController.login);
+router.post('/logout', AuthController.logout);
 
 // Protected Route (Requires a valid HttpOnly cookie to access)
 router.get('/me', AuthMiddleware, (req, res) => {

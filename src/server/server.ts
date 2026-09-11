@@ -1,41 +1,49 @@
-// src/server/server.ts
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import next from 'next';
-import authRoutes from './routes/session_routes'; // Uses your lowercase naming!
+import { createServer } from 'http';
+import { Server as ColyseusServer } from 'colyseus';
+import { WebSocketTransport } from '@colyseus/ws-transport';
+import authRoutes from './routes/session_routes';
+import { TicTacToeRoom } from './game/rooms/tictactoe_room';
 
 dotenv.config();
 
 const dev = process.env.NODE_ENV !== 'production';
-// Initialize Next.js app
-const nextApp = next({ dev }); 
+const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
+const PORT = Number(process.env.PORT) || 3000;
 
-const PORT = process.env.PORT || 3000;
-
-// Wait for Next.js to prepare, then start Express
 nextApp.prepare().then(() => {
-    const server = express();
+    const app = express();
 
     // --- Global Middlewares ---
-    server.use(express.json()); 
-    server.use(cookieParser()); 
+    app.use(express.json());
+    app.use(cookieParser());
 
     // --- Express Backend Routes ---
-    // Handle our API routes FIRST
-    server.use('/api/auth', authRoutes);
+    app.use('/api/auth', authRoutes);
 
     // --- Next.js Frontend Catch-All ---
-    // If a request isn't an API route, let Next.js render the page!
-    // --- Next.js Frontend Catch-All ---
-    server.use((req, res) => {
+    app.use((req, res) => {
         return handle(req, res);
     });
 
+    // --- Create a single HTTP server for everything ---
+    const httpServer = createServer(app);
+
+    // --- Attach Colyseus to the same HTTP server ---
+    const gameServer = new ColyseusServer();
+    gameServer.listen(2567);
+
+    // --- Register Game Rooms ---
+    gameServer.define("tictactoe", TicTacToeRoom);
+
     // --- Start the Unified Server ---
-    server.listen(PORT, () => {
+    httpServer.listen(PORT, () => {
         console.log(`> Unified Monolithic Server running on http://localhost:${PORT}`);
+        console.log(`> Colyseus WebSocket server attached (ws://localhost:${PORT})`);
     });
 }).catch((ex) => {
     console.error('Error starting server:', ex.stack);
