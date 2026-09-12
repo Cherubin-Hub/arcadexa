@@ -21,15 +21,18 @@ export class UserModel {
         return result.recordset[0];
     }
 
-    public static async createUser(username: string, email: string, passwordHash: string): Promise<void> {
+    public static async createUser(username: string, email: string, passwordHash: string, firstName: string, middleName: string, lastName: string): Promise<void> {
         const pool = await dbPoolPromise;
         await pool.request()
             .input('Username', sql.NVarChar, username)
             .input('Email', sql.NVarChar, email)
             .input('PasswordHash', sql.NVarChar, passwordHash)
+            .input('FirstName', sql.NVarChar, firstName)
+            .input('MiddleName', sql.NVarChar, middleName || null)
+            .input('LastName', sql.NVarChar, lastName)
             .query(`
-                INSERT INTO tblUsers (Username, Email, PasswordHash)
-                VALUES (@Username, @Email, @PasswordHash)
+                INSERT INTO tblUsers (Username, Email, PasswordHash, FirstName, MiddleName, LastName)
+                VALUES (@Username, @Email, @PasswordHash, @FirstName, @MiddleName, @LastName)
             `);
     }
 }

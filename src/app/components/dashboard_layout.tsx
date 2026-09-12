@@ -1,25 +1,17 @@
-// src/app/components/dashboard_layout.tsx
-import Header from './header';
-import Footer from './footer';
 import Sidebar from './sidebar';
-import { ReactNode } from 'react';
+import Header from './header';
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex h-screen overflow-hidden bg-gray-50">
-            {/* Left side: Sidebar */}
+        <div className="flex h-screen bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500/30">
             <Sidebar />
-
-            {/* Right side: Everything else */}
-            <div className="flex flex-col flex-1 overflow-hidden">
+            <div className="flex flex-col flex-1 overflow-hidden relative">
                 <Header />
-                
-                {/* Main Content Area */}
-                <main className="flex-1 overflow-y-auto p-6">
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+                <main className="flex-1 overflow-y-auto p-6 relative z-10">
                     {children}
                 </main>
-                
-                <Footer />
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ export class AuthController {
     
     public static async register(req: Request, res: Response): Promise<void> {
         try {
-            const { username, email, password } = req.body;
+            const { username, email, password, firstName, middleName, lastName } = req.body;
             
             // 1. Check if user already exists
             const existingUser = await UserModel.findByEmail(email);
@@ -18,7 +18,7 @@ export class AuthController {
 
             // 2. Hash the password and save to DB
             const passwordHash = await PasswordHelper.hashPassword(password);
-            await UserModel.createUser(username, email, passwordHash);
+            await UserModel.createUser(username, email, passwordHash, firstName, middleName, lastName);
 
             res.status(201).json({ message: 'User registered successfully!' });
         } catch (error) {
